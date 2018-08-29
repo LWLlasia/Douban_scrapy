@@ -37,23 +37,19 @@ class LessionSpider(scrapy.Spider):
                     response,
                     formdata={
                         'capthcha-solution': xerf,
-                        'phone': '18924891329',
-                        'password': '85359529'
+                        'phone': '账号',
+                        'password': '密码'
 
 
-                    #     'form_email': '965202810@qq.com',
-                    # 'form_password': 'gdufsiiip506'
                     },
                     callback=self.after_login, meta=response.meta
                 )
         return scrapy.FormRequest.from_response(
                     response,
                     formdata={
-                        'phone': '18924891329',
-                        'password': '85359529'
+                        'phone': '账号',
+                        'password': '密码'
 
-                    # 'form_email': '965202810@qq.com',
-                    # 'form_password': 'gdufsiiip506'
                     },
                     callback=self.after_login, meta=response.meta,
                 )
@@ -68,6 +64,7 @@ class LessionSpider(scrapy.Spider):
             yield scrapy.Request(url='https://movie.douban.com/j/subject_suggest?q=' +classification ,callback=self.after_post,
                                  dont_filter=True, meta=data)
 
+#             只需更改路径即可
     def get_data_from_csvfile(self):
         classifications = {}
         for root, dirs, files in os.walk('/home/lasia/Desktop/豆瓣/'):
@@ -208,7 +205,7 @@ class LessionSpider(scrapy.Spider):
             with open("/home/lasia/Desktop/douban/" +movie_year+'/'+ movie_name + '/'+type + '.csv', 'a')as csvfile:
                 writer = csv.DictWriter(csvfile, headers)
                 writer.writerow(data)
-
+# 帮电影建文件夹和ｃｓｖ文件
     def judge_data(self,data,start_data):
         judge = False
         type = data['type'].split('_')[0]
